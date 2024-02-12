@@ -27,7 +27,7 @@ namespace ServiceApp.ProducerAPI.Controllers
                 
             };
 
-            await _azureServices.SendMessageToQueue(Constans.OrderCreatedQueueName, orderCreatedEvent);
+            await _azureServices.SendMessageToTopic(Constans.OrderTopic, orderCreatedEvent,Constans.OrderCreatedSubscription,"OrderCreated","OrderCreatedOnly");
         }
 
         [HttpDelete("id")]
@@ -40,7 +40,7 @@ namespace ServiceApp.ProducerAPI.Controllers
                 CreatedOn = DateTime.UtcNow,
 
             };
-            await _azureServices.SendMessageToQueue(Constans.OrderDeletedQueueName, orderDeletedEvent);
+            await _azureServices.SendMessageToTopic(Constans.OrderTopic, orderDeletedEvent, Constans.OrderDeletedSubscription, "OrderDeleted", "OrderDeletedOnly");
         }
     }
 }
